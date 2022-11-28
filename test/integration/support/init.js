@@ -25,7 +25,7 @@ setDefaultTimeout(5 * 1000); // this is in ms
 
 Before(function () {
   const host = process.env.TEST_HOST || "org-env.apigee.net";
-  const basePath = `/abomis-airports${process.env.APIGEE_DEPLOYMENT_SUFFIX || ''}/v1`;
+  const basePath = `/abomis${process.env.APIGEE_DEPLOYMENT_SUFFIX || ''}/v1`;
   const baseUri = `${host}${basePath}`;
   console.log(`Test Base URI: ${baseUri}`);
   this.apickli = new apickliModule.Apickli("https", baseUri);
