@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "The first end-to-end reference solution for automating creation & deployment of Apigee API proxies using OAS3.x in Google Cloud Community",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run spectral-lint",
+    "spectral-lint": "spectral lint --quiet ./oas/*.{json,yml,yaml}"    
   },
   "repository": {
     "type": "git",
