@@ -13,11 +13,11 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: "1.0"
 servers:
-  - url: https://dev-api.taas-poc.com/abomis-airports/v1
+  - url: https://dev-api.taas-poc.com/abomis/v1
     description: Development Server
-  - url: https://test-api.taas-poc.com/abomis-airports/v1
+  - url: https://test-api.taas-poc.com/abomis/v1
     description: Test Server
-  - url: https://api-prd.taas-poc.com/abomis-airports/v1
+  - url: https://api-prd.taas-poc.com/abomis/v1
     description: Production Server
 tags:
   - name: Airports
