@@ -1,0 +1,176 @@
+---
+openapi: "3.0.2"
+info:
+  title: ABOMIS Airports
+  description: Specification for ABOMIS Airports API
+  contact:
+    name: Shehab El-Deen Alalkamy
+    url: https://github.com/ShehabEl-DeenAlalkamy
+    email: shehabeldeenalalkamy@gmail.com
+  termsOfService: http://example.com/terms
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: "1.0"
+servers:
+  - url: https://dev-api.taas-poc.com/abomis-airports/v1
+    description: Development Server
+  - url: https://test-api.taas-poc.com/abomis-airports/v1
+    description: Test Server
+  - url: https://api-prd.taas-poc.com/abomis-airports/v1
+    description: Production Server
+tags:
+  - name: Airports
+paths:
+  /airports:
+    get:
+      parameters:
+        - $ref: "#/components/parameters/CountryParam"
+        - $ref: "#/components/parameters/LimitParam"
+      summary: List Airports
+      description: Get list of **busiest airports** by passenger traffic in 2019
+      operationId: listAirportsV1
+      tags:
+        - Airports
+      responses:
+        '200':
+          description: List of Airports
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AirportList"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /airports/{iataCode}:
+    get:
+      parameters:
+        - $ref: "#/components/parameters/IataCodePathParam"
+      summary: Get an Airport by IATA code
+      description: Get a single airport by it's IATA code value
+      operationId: getAirportV1
+      tags:
+        - Airports
+      responses:
+        '200':
+          description: Airport Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Airport"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '404':
+          description: Airport Not Found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  parameters:
+    CountryParam:
+      name: country
+      in: query
+      description: Country Name
+      required: false
+      schema:
+        type: string
+    LimitParam:
+      name: limit
+      in: query
+      description: Limit Size
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 50
+    IataCodePathParam:
+      name: iataCode
+      in: path
+      description: Airport IATA code
+      required: true
+      schema:
+        type: string
+        example: LAX
+  schemas:
+    Airport:
+      type: object
+      description: Airport Object
+      properties:
+        rank:
+          type: integer
+          format: int32
+          minimum: 1
+          example: 3
+        airport:
+          type: string
+          maxLength: 100
+          example: United States Los Angeles International Airport
+        location:
+          type: string
+          example: Los Angeles, California
+        country:
+          type: string
+          example: United States
+        iata:
+          type: string
+          example: LAX
+        icao:
+          type: string
+          example: KLAX
+    AirportList:
+      type: array
+      description: List of Airports
+      minItems: 1
+      maxItems: 100
+      items:
+        $ref: "#/components/schemas/Airport"
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+          properties:
+            errors:
+              type: array
+              items:
+                type: object
+                required:
+                  - message
+                properties:
+                  message:
+                    type: string
+            code:
+              type: integer
+              format: int32
+            message:
+              type: string
