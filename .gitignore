@@ -6,3 +6,9 @@
 
 # ignore vscode temp generated files
 .vscode/*
+
+# ignore all possible migrated proxy bundles
+**/*.zip
+
+# don't ignore proxy-bundles/*.zip assets
+!docs/assets/proxy-bundles/*.zip
