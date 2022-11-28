@@ -1,0 +1,55 @@
+trigger: none
+
+pr: none
+
+resources:
+  repositories:
+    - repository: self
+      clean: true
+    - repository: apigee-core
+      type: github
+      name: ShehabEl-DeenAlalkamy/apigee-core-yaml-pipeline-templates
+      ref: main
+      endpoint: ShehabEl-DeenAlalkamy
+  pipelines:
+    - pipeline: abomis-ci
+      source: abomis-ci
+      trigger:
+        branches:
+          include:
+            # TODO: uncomment when work is done
+            # - main
+            # TODO: remove when development work is done
+            - release/oas2apigee-cicd-v1.0.0-beta
+
+pool:
+  vmImage: ubuntu-latest
+
+extends:
+  template: release.yaml@apigee-core
+  parameters:
+    releaseProfile: custom-release
+    deploymentProfile:
+      type: api-proxies
+      name: oas2apigee
+      version: 1
+    artifactAlias: abomis-ci
+    artifactName: oas2apigee-artifacts
+    commonVariableGroups:
+      - abomis-common
+    releaseList:
+      - stageName: Dev
+        displayName: Dev
+        variableGroups:
+          - abomis-dev-env
+        environment: abomis-dev
+      - stageName: Test
+        displayName: Test
+        variableGroups:
+          - abomis-tst-env
+        environment: abomis-tst
+      - stageName: Prod
+        displayName: Prod
+        variableGroups:
+          - abomis-prd-env
+        environment: abomis-prd

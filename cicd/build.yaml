@@ -1,0 +1,45 @@
+trigger:
+  branches:
+    include:
+      - "*"
+  paths:
+    exclude:
+      - "docs/**"
+      - ".gitignore"
+      - "README.md"
+
+pr:
+  branches:
+    include:
+      - main
+      - master
+      - rel/**
+      - release/**
+  paths:
+    exclude:
+      - "docs/**"
+      - ".gitignore"
+      - "README.md"
+
+resources:
+  repositories:
+    - repository: self
+      clean: true
+    - repository: apigee-core
+      type: github
+      name: ShehabEl-DeenAlalkamy/apigee-core-yaml-pipeline-templates
+      ref: main
+      endpoint: ShehabEl-DeenAlalkamy
+
+pool:
+  vmImage: ubuntu-latest
+
+extends:
+  template: build.yaml@apigee-core
+  parameters:
+    buildProfile:
+      type: api-proxies
+      name: oas2apigee
+      version: 1
+    variableGroups:
+      - abomis-common
