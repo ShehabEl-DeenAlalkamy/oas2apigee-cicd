@@ -1,0 +1,24 @@
+{
+  "name": "oas2apigee-cicd",
+  "version": "1.0.0",
+  "description": "The first end-to-end reference solution for automating creation & deployment of Apigee API proxies using OAS3.x in Google Cloud Community",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd.git"
+  },
+  "keywords": [
+    "apigee",
+    "cicd",
+    "oas2apigee",
+    "api-proxies"
+  ],
+  "author": "shehabeldeenalalkamy@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd/issues"
+  },
+  "homepage": "https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd#readme"
+}
