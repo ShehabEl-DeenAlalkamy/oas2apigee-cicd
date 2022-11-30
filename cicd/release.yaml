@@ -17,10 +17,7 @@ resources:
       trigger:
         branches:
           include:
-            # TODO: uncomment when work is done
-            # - main
-            # TODO: remove when development is done
-            - release/oas2apigee-cicd-v2.0.0-beta
+            - main
 
 pool:
   vmImage: ubuntu-latest
