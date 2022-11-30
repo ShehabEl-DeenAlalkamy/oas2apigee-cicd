@@ -28,10 +28,7 @@ resources:
     - repository: apigee-core
       type: github
       name: ShehabEl-DeenAlalkamy/apigee-core-yaml-pipeline-templates
-      # TODO: uncomment when work is done
-      # ref: main
-      # TODO: remove when development is done
-      ref: rel/framework-v2.0.0
+      ref: refs/tags/v2.0.0-beta
       endpoint: ShehabEl-DeenAlalkamy
 
 pool:
