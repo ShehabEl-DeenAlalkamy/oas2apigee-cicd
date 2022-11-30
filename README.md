@@ -35,7 +35,7 @@ Within this repository you will find the **FIRST end-to-end** reference solution
 - Follows best practices.
 - Decoupled CI / CD.
 - CI / CD is a managed service.
-- High maintainabilty.
+- High maintainability.
 - Cost effective as your pipeline will only trigger to changes in source code.
 - Highly flexible.
 
@@ -368,13 +368,7 @@ _Tests Results (Functional Testing for 3 environments)_
 
 <div align="center">
 
-![API Proxies List on the Organization][apigee-proxies-01]
-
-</div>
-
-<div align="center">
-
-![abomis-v1 UI - Overview Tab][apigee-proxies-02]
+![abomis-v1 UI - Overview Tab][apigee-proxies-01]
 
 </div>
 
@@ -490,7 +484,6 @@ Shehab El-Deen Alalkamy
 [release-pipeline-stages]: docs/assets/imgs/release-pipeline-stages.png
 [release-pipeline-ft-tests-tab]: docs/assets/imgs/release-pipeline-ft-tests-tab.png
 [apigee-proxies-01]: docs/assets/imgs/apigee-proxies-01.png
-[apigee-proxies-02]: docs/assets/imgs/apigee-proxies-02.png
 [apigee-proxies-live-dev-01]: docs/assets/imgs/apigee-proxies-live-dev-01.png
 [apigee-proxies-live-dev-02]: docs/assets/imgs/apigee-proxies-live-dev-02.png
 [apigee-proxies-live-test-01]: docs/assets/imgs/apigee-proxies-live-test-01.png
