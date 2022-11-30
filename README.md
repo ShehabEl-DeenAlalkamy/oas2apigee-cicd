@@ -31,6 +31,8 @@ Within this repository you will find the **FIRST end-to-end** reference solution
 ## Key Features
 
 - Supports Apigee X / Hybrid.
+- Supports dynamic target endpoints.
+- Supports creation of property set files to extend the API proxy functionality.
 - Leverage fast API development.
 - Follows best practices.
 - Decoupled CI / CD.
@@ -106,9 +108,26 @@ An API developer will have to allocate single repository per API proxy where he 
   │   └── {oas_filename}.yaml
   ├── package-lock.json
   ├── package.json
+  ├── resources/
+  │   └── edge/
+  │       └── env/
+  │           ├──{env_1}/
+  │           │   └── properties
+  │           │       └── {property_set_filename}.properties
+  │           ├──{env_2}/
+  │           │   └── properties
+  │           │       └── {property_set_filename}.properties
+  │           ├──{env_3}
+  │           │     └── properties
+  │           │       └── {property_set_filename}.properties
+  │           │
+  │           └──.....
+  │
+  │
   └── test/
       └── integration/        // functional testing scripts
   </pre>
+  > :bulb: **Tip:** see resources/edge [multi-file config structure docs][apigee-config-mvn-folder-structure].
 
 ## The Why?
 
@@ -182,6 +201,8 @@ There are several important reasons to use the OpenAPI specification:
 
 - Existing Apigee X / Hybrid organization.
 - Existing Apigee environment(s) & environment group(s).
+- `resources/edge/env/{env_n}` must have the same name as your Apigee's environment(s), and you must follow the folder structure given otherwise the pipeline will **fail** on deployment.
+- `resources/edge/env/{env_n}/properties/{property_set_filename}.properties` must have this line `target_url = @TARGET_ENDPOINT/{proxy.pathsuffix}?{request.querystring}` which is crucial for the dynamic target endpoint functionality otherwise the pipeline will **fail** on deployment.
 - Two existing Azure DevOps pipelines with proper service connections:
   1. One for the build, suggested naming convention: `<REPO_NAME>-ci`.
   2. One for the release, suggested naming convention: `<REPO_NAME>-cd`.
@@ -236,7 +257,8 @@ git push -u my-repo feature/oas2apigee-cicd
       - `org`: Apigee's organization.
       - `proxyName`: Your API proxy name on Apigee organization **e.g** `abomis-v1`.
       - `oasFileName`: name of your OAS3.x file that you want to deploy **e.g** `abomis-v1.yaml`.
-      - `initialTargetEndpoint`: **OPTIONAL** Your API proxy target endpoint which will be attached to your API proxy bundle zip file artifact produced by your build pipeline. If not declared by default, the `initialTargetEndpoint` will be resolved to the `servers[0].url` base url within your OAS file.
+      - `propertySetFileName`: name of your property set file. **e.g** `abomis.properties`
+      - `propertySetName`: name of your property set resource on the environment. **e.g** `abomis`
       - `gcpServiceAccount`: paste the content of your your GCP service account key file as a **WHOLE**.
         > :warning: **Warning:** Make sure to check "Keep this value secret".
   - `<REPO_NAME>-{ENVIRONMENT}-env`:
@@ -423,8 +445,9 @@ Congratulations! you have deployed your first API proxy successfully. Now you ha
   <br />
 
   > :bulb: **Tip:** see [custom policies][apigeecli-custom-policies].
-- The solution doesn't support creating Apigee configuration resources.
+- The solution doesn't support creating Apigee configuration resources except for property sets.
 - The solution doesn't support mock API proxies (API proxies with no target endpoints).
+- It's planned from Google Cloud Apigee to enforce a limitation of 10 property set files per environment, you can read more [here][apigee-ps-limit].
 
 <br />
 
@@ -456,6 +479,7 @@ Shehab El-Deen Alalkamy
 [apigee-core-yaml-pipelines-templates]: https://github.com/ShehabEl-DeenAlalkamy/apigee-core-yaml-pipeline-templates
 [apigee-envgroups]: https://cloud.google.com/apigee/docs/api-platform/fundamentals/environments-overview
 [oas-github-info-field]: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#fixed-fields-1
+[apigee-config-mvn-folder-structure]: https://github.com/apigee/apigee-config-maven-plugin/tree/hybrid#multi-file-config
 [abomis-airports]: https://github.com/ShehabEl-DeenAlalkamy/abomis-airports
 [apigee-docs-understanding-apis-and-proxies]: https://cloud.google.com/apigee/docs/api-platform/fundamentals/understanding-apis-and-api-proxies
 [oas-github-v3.0]: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#openapi-specification
@@ -470,6 +494,7 @@ Shehab El-Deen Alalkamy
 [apigee-x-policies-spikearrest]: https://cloud.google.com/apigee/docs/api-platform/reference/policies/spike-arrest-policy
 [apigee-x-policies-quota]: https://cloud.google.com/apigee/docs/api-platform/reference/policies/quota-policy
 [apigeecli-custom-policies]: https://github.com/apigee/apigeecli#security-policies
+[apigee-ps-limit]: https://cloud.google.com/apigee/docs/api-platform/reference/limits#persistence:-cache,-kvm,-property-sets
 
 <!-- * Images * -->
 
