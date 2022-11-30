@@ -1,0 +1,17 @@
+# ignore .DS_Store
+.DS_Store
+
+# ignore node_modules
+**/node_modules/**
+
+# ignore vscode temp generated files
+.vscode/*
+
+# ignore all possible migrated proxy bundles
+**/*.zip
+
+# don't ignore proxy-bundles/*.zip assets
+!docs/assets/proxy-bundles/*.zip
+
+# ignore all possible generated apiproxy/ directories
+**/apiproxy/**

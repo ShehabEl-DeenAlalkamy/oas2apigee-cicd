@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "The first end-to-end reference solution for automating creation & deployment of Apigee API proxies using OAS3.x in Google Cloud Community",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run integration-test",
+    "integration-test": "TEST_HOST=\"${BASE_URL}\" cucumber-js --publish-quiet ./test/integration",
+    "lint": "npm run spectral-lint",
+    "spectral-lint": "spectral lint --quiet ./oas/*.{json,yml,yaml}"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd/issues"
   },
-  "homepage": "https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd#readme"
+  "homepage": "https://github.com/ShehabEl-DeenAlalkamy/oas2apigee-cicd#readme",
+  "devDependencies": {
+    "@cucumber/cucumber": "^8.9.0",
+    "@stoplight/spectral-cli": "^6.6.0",
+    "apickli": "^3.0.2",
+    "cucumber-junit": "^1.7.1"
+  }
 }

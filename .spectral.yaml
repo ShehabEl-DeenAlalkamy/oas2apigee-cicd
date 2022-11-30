@@ -1,0 +1,35 @@
+---
+extends: "spectral:oas"
+
+# the following rules are already supported within the built-in 'oas' ruleset and not needed here but only added as a reference for the readers
+# see:
+#  - https://meta.stoplight.io/docs/spectral/cb95cf0d26b83-core-functions
+#  - https://meta.stoplight.io/docs/spectral/a781e290eb9f9-custom-functions
+
+rules:
+  oas3-api-servers:
+    description: "OpenAPI `servers` must be present and non-empty array."
+    recommended: true
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          items:
+            type: object
+          minItems: 1
+
+  important-fields:
+    description: Absolutely must have a title and a description
+    message: "Missing the {{property}}"
+    severity: error
+    given: "$.info"
+    then:
+      - field: "title"
+        function: truthy
+
+      - field: "description"
+        function: truthy
