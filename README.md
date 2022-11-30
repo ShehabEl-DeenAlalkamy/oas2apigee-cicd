@@ -35,7 +35,7 @@ Within this repository you will find the **FIRST end-to-end** reference solution
 - Follows best practices.
 - Decoupled CI / CD.
 - CI / CD is a managed service.
-- High maintainabilty.
+- High maintainability.
 - Cost effective as your pipeline will only trigger to changes in source code.
 - Highly flexible.
 
